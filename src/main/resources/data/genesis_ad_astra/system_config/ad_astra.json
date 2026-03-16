@@ -1,0 +1,46 @@
+{
+  "celestials": [
+    {
+      "ID": "ad_astra:mercury",
+      "type": "genesis:body",
+      "size": 37,
+      "gravity": 0.38,
+      "transformProvider": {
+        "type": "genesis:orbiting",
+        "parentID": "genesis:sun",
+        "seed": 11111,
+        "orbitDistance": 5850,
+        "orbitTime": 1108600,
+        "dayLength": 1406400
+      }
+    },
+    {
+      "ID": "ad_astra:venus",
+      "type": "genesis:body",
+      "size": 91,
+      "gravity": 0.90,
+      "transformProvider": {
+        "type": "genesis:orbiting",
+        "parentID": "genesis:sun",
+        "seed": 22222,
+        "orbitDistance": 10800,
+        "orbitTime": 2829000,
+        "dayLength": 5832000
+      }
+    },
+    {
+      "ID": "ad_astra:mars",
+      "type": "genesis:body",
+      "size": 51,
+      "gravity": 0.38,
+      "transformProvider": {
+        "type": "genesis:orbiting",
+        "parentID": "genesis:sun",
+        "seed": 33333,
+        "orbitDistance": 22800,
+        "orbitTime": 8652600,
+        "dayLength": 24600
+      }
+    }
+  ]
+}

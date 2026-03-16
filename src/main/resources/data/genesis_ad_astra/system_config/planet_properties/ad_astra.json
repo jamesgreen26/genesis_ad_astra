@@ -1,0 +1,46 @@
+{
+  "planets": [
+    {
+      "id": "ad_astra:mercury",
+      "atmosphere": {
+        "density": 0.0,
+        "thickness": 0.05,
+        "precipitation": false,
+        "color": {
+          "type": "genesis:rgb",
+          "r": 0,
+          "g": 0,
+          "b": 0
+        }
+      }
+    },
+    {
+      "id": "ad_astra:venus",
+      "atmosphere": {
+        "density": 9.2,
+        "thickness": 3.0,
+        "precipitation": false,
+        "color": {
+          "type": "genesis:rgb",
+          "r": 214,
+          "g": 188,
+          "b": 122
+        }
+      }
+    },
+    {
+      "id": "ad_astra:mars",
+      "atmosphere": {
+        "density": 0.06,
+        "thickness": 0.4,
+        "precipitation": false,
+        "color": {
+          "type": "genesis:rgb",
+          "r": 201,
+          "g": 120,
+          "b": 80
+        }
+      }
+    }
+  ]
+}
