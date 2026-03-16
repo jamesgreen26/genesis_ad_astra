@@ -6,6 +6,8 @@
   "client": [
   ],
   "mixins": [
+    "DimensionSpecialEffectsManagerMixin",
+    "DimensionSpecialEffectsMixin",
     "GravityApiMixin",
     "OxygenApiMixin",
     "TemperatureApiMixin"
