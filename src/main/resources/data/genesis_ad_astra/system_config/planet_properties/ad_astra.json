@@ -3,8 +3,8 @@
     {
       "id": "ad_astra:mercury",
       "atmosphere": {
-        "density": 0.0,
-        "thickness": 0.05,
+        "density": 0.3,
+        "thickness": 0.5,
         "precipitation": false,
         "color": {
           "type": "genesis:rgb",
@@ -17,8 +17,8 @@
     {
       "id": "ad_astra:venus",
       "atmosphere": {
-        "density": 9.2,
-        "thickness": 3.0,
+        "density": 1.4,
+        "thickness": 1.1,
         "precipitation": false,
         "color": {
           "type": "genesis:rgb",
@@ -31,7 +31,7 @@
     {
       "id": "ad_astra:mars",
       "atmosphere": {
-        "density": 0.06,
+        "density": 0.6,
         "thickness": 0.4,
         "precipitation": false,
         "color": {
