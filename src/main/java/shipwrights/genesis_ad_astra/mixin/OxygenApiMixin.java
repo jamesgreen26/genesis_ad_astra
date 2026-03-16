@@ -12,14 +12,23 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import shipwrights.genesis.GenesisMod;
+import shipwrights.genesis.space.planet_properties.PlanetProperties;
 
 @Mixin(value = OxygenApiImpl.class, remap = false)
 public class OxygenApiMixin {
 
     @WrapMethod(method = "hasOxygen(Lnet/minecraft/resources/ResourceKey;)Z")
     private boolean hasOxygen(ResourceKey<Level> level, Operation<Boolean> original) {
-        if (level.location().getNamespace().equals("cosmos")) return false;
-        return original.call(level);
+        PlanetProperties planetProperties = PlanetProperties.get(level.location());
+
+        if (GenesisMod.shouldCancelVoidDamage(level.location())) {
+            return false;
+        } else if (planetProperties != null) {
+            return planetProperties.atmosphere().isBreathable();
+        } else  {
+            return original.call(level);
+        }
     }
 
     @WrapMethod(method = "hasOxygen(Lnet/minecraft/world/entity/Entity;)Z")
