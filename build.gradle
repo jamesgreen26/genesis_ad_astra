@@ -1,0 +1,195 @@
+plugins {
+    id 'maven-publish'
+    id 'net.neoforged.moddev.legacyforge' version '2.0.137'
+}
+
+configurations {
+    clientOnlyMods {
+        // Request Mojang-mapped ("named") artifacts so NeoForged's SRG→Mojang
+        // RemappingTransform is applied, matching what modRuntimeOnly gets.
+        attributes {
+            attribute(
+                    Attribute.of("net.neoforged.moddevgradle.legacy.minecraft_mappings.v2", Named),
+                    objects.named(Named, "named")
+            )
+        }
+    }
+}
+
+group = project.maven_group
+version = project.mod_version
+
+base {
+    archivesName = project.archives_name
+}
+
+legacyForge {
+    version = forge_version
+
+    validateAccessTransformers = true
+
+    runs {
+        client {
+            client()
+        }
+        data {
+            data()
+        }
+        server {
+            server()
+        }
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'forge.enabledGameTestNamespaces', 'genesis_ad_astra'
+        }
+    }
+
+    mods {
+        testproject {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "mixins.shipwrights.genesis_ad_astra.refmap.json"
+    config 'genesis_ad_astra.mixins.json' // This can be done for multiple configs
+}
+
+jar {
+    manifest.attributes([
+            "MixinConfigs": "genesis_ad_astra.mixins.json"
+    ])
+}
+
+repositories {
+    flatDir { dir 'libs'}
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+
+    maven {
+        name = "Valkyrien Skies Internal"
+        url = 'https://maven.valkyrienskies.org'
+    }
+
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
+    }
+    maven { url = 'https://maven.blamejared.com/' }
+    maven {
+        name 'Curios maven'
+        url = "https://maven.theillusivec4.top/"
+    }
+
+    maven { url = "https://maven.ithundxr.dev/mirror" }
+
+    maven { url = "https://maven.bawnorton.com/releases" }
+
+    maven { url = "https://maven.enjarai.dev/mirrors" }
+
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+
+    implementation(annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0"))
+    implementation("io.github.llamalad7:mixinextras-forge:0.5.0")
+
+    // region Valkyrien Skies
+    implementation("org.valkyrienskies.core:api:${vs_core_version}") { transitive = false
+        exclude group: 'org.joml', module: ''
+    }
+    implementation("org.valkyrienskies.core:internal:${vs_core_version}") { transitive = false
+        exclude group: 'org.joml', module: ''
+    }
+    implementation("org.valkyrienskies.core:util:${vs_core_version}") { transitive = false
+        exclude group: 'org.joml', module: ''
+    }
+    implementation("org.valkyrienskies.core:impl:${vs_core_version}") { transitive = false
+        exclude group: 'org.joml', module: ''
+    }
+    modApi("org.valkyrienskies:valkyrienskies-120-forge:${vs2_version}") { transitive = false
+        exclude group: 'org.valkyrienskies.core', module: ''
+    }
+    // endregion
+
+    // region VS deps
+    implementation "com.fasterxml.jackson.core:jackson-annotations:2.13.3"
+    compileOnly("org.joml:joml:1.10.4")
+    compileOnly("org.joml:joml-primitives:1.10.0")
+    modApi("thedarkcolour:kotlinforforge:4.11.0")
+    // endregion
+
+    modImplementation("maven.modrinth:vlib:1.20.1-0.1.0+forge")
+
+    // For VLib
+    modRuntimeOnly("maven.modrinth:architectury-api:9.2.14+forge")
+
+    modImplementation("maven.modrinth:curios:5.14.1+1.20.1")
+    modImplementation("maven.modrinth:lodestonelib:1.20.1-1.6.4.1")
+
+
+    modImplementation("ace.actually.radios:radios:1.2.0")
+
+    //noinspection DifferentStdlibGradleVersion
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.0")
+
+    // Test dependencies
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+    testImplementation("org.joml:joml:1.10.4")
+    testImplementation("org.joml:joml-primitives:1.10.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.10.0")
+
+    modImplementation("maven.modrinth:zps:1.20.1-2.0.0")
+    clientOnlyMods("maven.modrinth:fusion-connected-textures:1.2.12-forge-mc1.20.1")
+    modRuntimeOnly("maven.modrinth:zpl:1.20.1-1.5.0")
+
+    modImplementation("maven.modrinth:ad-astra:1.15.20")
+    modImplementation("maven.modrinth:resourceful-lib:2.1.29")
+    modImplementation("maven.modrinth:botarium:2.3.4")
+    modImplementation("shipwrights.genesis:genesis:1.20.1-0.6.0")
+
+}
+
+afterEvaluate {
+    tasks.named('runClient') {
+        classpath += configurations.clientOnlyMods.incoming.files
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('META-INF/mods.toml') {
+        expand version: project.version
+    }
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
+
+sourceSets {
+    test {
+        compileClasspath += sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.runtimeClasspath
+    }
+}

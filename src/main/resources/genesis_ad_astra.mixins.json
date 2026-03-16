@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "shipwrights.genesis_ad_astra.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "GravityApiMixin",
+    "OxygenApiMixin",
+    "TemperatureApiMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
