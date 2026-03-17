@@ -6,6 +6,8 @@ import earth.terrarium.adastra.api.events.AdAstraEvents;
 import earth.terrarium.adastra.common.config.AdAstraConfig;
 import earth.terrarium.adastra.common.systems.GravityApiImpl;
 import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,6 +18,15 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Mixin(value = GravityApiImpl.class, remap = false)
 public class GravityApiMixin {
+
+    @WrapMethod(method = "getGravity(Lnet/minecraft/resources/ResourceKey;)F")
+    private float wrapGetGravity0(ResourceKey<Level> level, Operation<Float> original) {
+        if (level.location().equals(ResourceLocation.parse("genesis:moon"))) {
+            return 0.2f;
+        } else {
+            return original.call(level);
+        }
+    }
 
 
     @WrapMethod(method = "getGravity(Lnet/minecraft/world/entity/Entity;)F")
