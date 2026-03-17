@@ -44,6 +44,21 @@
           "b": 80
         }
       }
+    },
+    {
+      "id": "ad_astra:glacio",
+      "atmosphere": {
+        "density": 0.5,
+        "thickness": 0.5,
+        "precipitation": false,
+        "isBreathable": false,
+        "color": {
+          "type": "genesis:rgb",
+          "r": 196,
+          "g": 196,
+          "b": 255
+        }
+      }
     }
   ]
 }

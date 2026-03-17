@@ -8,7 +8,7 @@
       "transformProvider": {
         "type": "genesis:orbiting",
         "parentID": "genesis:sun",
-        "seed": 11111,
+        "seed": 99345,
         "orbitDistance": 5850,
         "orbitTime": 1108600,
         "dayLength": 1406400
@@ -22,7 +22,7 @@
       "transformProvider": {
         "type": "genesis:orbiting",
         "parentID": "genesis:sun",
-        "seed": 22222,
+        "seed": 1273,
         "orbitDistance": 10800,
         "orbitTime": 2829000,
         "dayLength": 5832000
@@ -36,9 +36,35 @@
       "transformProvider": {
         "type": "genesis:orbiting",
         "parentID": "genesis:sun",
-        "seed": 33333,
+        "seed": 82934,
         "orbitDistance": 22800,
         "orbitTime": 8652600,
+        "dayLength": 24600
+      }
+    },
+    {
+      "ID": "ad_astra:proxima_centauri",
+      "type": "genesis:star",
+      "size": 2048,
+      "gravity": 6.0,
+      "transformProvider": {
+        "type": "genesis:static",
+        "x": 100000.0,
+        "y": 0.0,
+        "z": 100000.0
+      }
+    },
+    {
+      "ID": "ad_astra:glacio",
+      "type": "genesis:body",
+      "size": 48,
+      "gravity": 0.4,
+      "transformProvider": {
+        "type": "genesis:orbiting",
+        "parentID": "ad_astra:proxima_centauri",
+        "seed": 983475,
+        "orbitDistance": 38000,
+        "orbitTime": 12652600,
         "dayLength": 24600
       }
     }
