@@ -1,0 +1,27 @@
+{
+  "type": "genesis:body",
+  "size": 48,
+  "gravity": 0.4,
+  "transformProvider": {
+    "type": "genesis:orbiting",
+    "parentID": "ad_astra:proxima_centauri",
+    "seed": 983475,
+    "orbitDistance": 38000,
+    "orbitTime": 12652600,
+    "dayLength": 24600
+  },
+  "properties": {
+    "atmosphere": {
+      "density": 0.5,
+      "thickness": 0.5,
+      "precipitation": false,
+      "isBreathable": false,
+      "color": {
+        "type": "genesis:rgb",
+        "r": 196,
+        "g": 196,
+        "b": 255
+      }
+    }
+  }
+}

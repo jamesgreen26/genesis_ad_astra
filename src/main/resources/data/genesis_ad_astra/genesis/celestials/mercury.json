@@ -1,0 +1,27 @@
+{
+  "type": "genesis:body",
+  "size": 37,
+  "gravity": 0.38,
+  "transformProvider": {
+    "type": "genesis:orbiting",
+    "parentID": "genesis:sun",
+    "seed": 99345,
+    "orbitDistance": 5850,
+    "orbitTime": 1108600,
+    "dayLength": 1406400
+  },
+  "properties": {
+    "atmosphere": {
+      "density": 0.3,
+      "thickness": 0.5,
+      "precipitation": false,
+      "isBreathable": false,
+      "color": {
+        "type": "genesis:rgb",
+        "r": 0,
+        "g": 0,
+        "b": 0
+      }
+    }
+  }
+}

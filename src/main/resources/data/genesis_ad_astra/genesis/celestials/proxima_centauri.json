@@ -1,0 +1,19 @@
+{
+  "type": "genesis:star",
+  "size": 2048,
+  "gravity": 6.0,
+  "transformProvider": {
+    "type": "genesis:static",
+    "x": 150000.0,
+    "y": 0.0,
+    "z": 100000.0
+  },
+  "properties": {
+    "r0": 32,
+    "g0": 75,
+    "b0": 255,
+    "r1": 230,
+    "g1": 240,
+    "b1": 255
+  }
+}
