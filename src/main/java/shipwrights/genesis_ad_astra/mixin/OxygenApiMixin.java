@@ -12,21 +12,26 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import org.valkyrienskies.mod.common.ValkyrienSkiesMod;
 import shipwrights.genesis.GenesisMod;
-import shipwrights.genesis.space.planet_properties.PlanetProperties;
+import shipwrights.genesis.space.Celestial;
+import shipwrights.genesis.space.properties.PlanetProperties;
 
 @Mixin(value = OxygenApiImpl.class, remap = false)
 public class OxygenApiMixin {
 
     @WrapMethod(method = "hasOxygen(Lnet/minecraft/resources/ResourceKey;)Z")
     private boolean hasOxygen(ResourceKey<Level> level, Operation<Boolean> original) {
-        PlanetProperties planetProperties = PlanetProperties.get(level.location());
+        var server = ValkyrienSkiesMod.getCurrentServer();
+        Celestial celestial = server != null ? server.registryAccess()
+                .registryOrThrow(GenesisMod.CELESTIALS_KEY).get(level.location()) : null;
+        PlanetProperties planetProperties = celestial != null && celestial.properties() instanceof PlanetProperties pp ? pp : null;
 
         if (GenesisMod.shouldCancelVoidDamage(level.location())) {
             return false;
         } else if (planetProperties != null) {
             return planetProperties.atmosphere().isBreathable();
-        } else  {
+        } else {
             return original.call(level);
         }
     }
