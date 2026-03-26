@@ -13,6 +13,7 @@ import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.valkyrienskies.mod.common.VSGameUtilsKt;
+import shipwrights.genesis.GenesisMod;
 
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -21,7 +22,9 @@ public class GravityApiMixin {
 
     @WrapMethod(method = "getGravity(Lnet/minecraft/resources/ResourceKey;)F")
     private float wrapGetGravity0(ResourceKey<Level> level, Operation<Float> original) {
-        if (level.location().equals(ResourceLocation.parse("genesis:moon"))) {
+        if (GenesisMod.isMiniScale(level.location())) {
+            return 0.0f;
+        } if (level.location().equals(ResourceLocation.parse("genesis:moon"))) {
             return 0.2f;
         } else {
             return original.call(level);

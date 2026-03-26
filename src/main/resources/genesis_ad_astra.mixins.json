@@ -9,6 +9,7 @@
   "mixins": [
     "DimensionSpecialEffectsManagerMixin",
     "DimensionSpecialEffectsMixin",
+    "GenesisModMixin",
     "GravityApiMixin",
     "OxygenApiMixin",
     "TemperatureApiMixin"
