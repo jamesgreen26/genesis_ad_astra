@@ -1,17 +1,17 @@
 modLoader = "javafml"
 loaderVersion = "[47,)"
 #issueTrackerURL = ""
-license = "Insert License Here"
+license = "MIT"
 
 [[mods]]
 modId = "genesis_ad_astra"
 version = "${version}"
 displayName = "Genesis: Ad Astra"
-authors = "Me!"
+authors = "G_Mungus"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Integrates Ad Astra into Genesis
 '''
-#logoFile = ""
+logoFile = "assets/genesis_ad_astra/icon.png"
 
 [[dependencies.genesis_ad_astra]]
 modId = "forge"
@@ -24,5 +24,19 @@ side = "BOTH"
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.genesis_ad_astra]]
+modId = "genesis"
+mandatory = true
+versionRange = "[1.20.1-0.7.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.genesis_ad_astra]]
+modId = "ad_astra"
+mandatory = true
+versionRange = "[1.15.0,)"
 ordering = "NONE"
 side = "BOTH"
