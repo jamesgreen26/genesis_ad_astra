@@ -1,0 +1,6 @@
+{
+  "type": "forge:add_features",
+  "features": "ad_astra:ore_moon_cheese",
+  "biomes": "#genesis:is_moon",
+  "step": "underground_ores"
+}
